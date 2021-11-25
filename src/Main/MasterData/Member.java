@@ -44,7 +44,7 @@ public class Member extends javax.swing.JFrame {
         tbl.addColumn("Gender");
         member_table.setModel(tbl);
         try {
-            String query = "SELECT * FROM anggota";
+            String query = "SELECT * FROM anggota ORDER BY id_anggota DESC";
             Connection conn = (Connection)Database.GetConnection();
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet result = ps.executeQuery();
@@ -58,6 +58,8 @@ public class Member extends javax.swing.JFrame {
                 });
                 member_table.setModel(tbl);
             }
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan saat mengambil data");
         }
@@ -188,6 +190,11 @@ public class Member extends javax.swing.JFrame {
         ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 80, 30));
 
         btnBook_delete.setBackground(new java.awt.Color(22, 30, 84));
+        btnBook_delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBook_deleteMouseClicked(evt);
+            }
+        });
         btnBook_delete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,15 +245,54 @@ public class Member extends javax.swing.JFrame {
 
     private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
         if(!txt_nama.getText().equals("") && !txt_nomor.getText().equals("") && txt_jk.getSelectedIndex() != 0 && !txt_alamat.getText().equals("")) {
+            String nama = txt_nama.getText();
+            String nomor = txt_nomor.getText();
+            String alamat = txt_alamat.getText();
+            String gender = txt_jk.getSelectedItem().toString();
+            
             try {
+                String query = "INSERT INTO anggota (id_anggota, nama, nomor, alamat, gender) VALUES (NULL, '" + nama + "', '" + nomor + "', '" + alamat + "', '" + gender + "')";
+                Connection conn = (Connection)Database.GetConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.execute();
+                ps.close();
+                conn.close();
                 
+                this._datatables();
+                this._resetField();
+                JOptionPane.showMessageDialog(this, "Berhasil menambahkan data");
             } catch (Exception e) {
-                
+                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");   
             }
         } else {
             JOptionPane.showMessageDialog(this, "Data tidak boleh kosong!");   
         }
     }//GEN-LAST:event_btnBook_submitMouseClicked
+
+    private void btnBook_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_deleteMouseClicked
+        int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin akan menghapus anggota ini?", "OK", JOptionPane.OK_CANCEL_OPTION);
+        if(confirm == 0) {
+            DefaultTableModel tbl = (DefaultTableModel) member_table.getModel();
+            int[] rows = member_table.getSelectedRows();
+            for (int i = 0; i < rows.length; i++) {
+                String id_anggota = member_table.getValueAt(rows[i], 0).toString();
+
+                try {
+                    String query = "DELETE FROM anggota WHERE id_anggota='" + id_anggota + "'";
+                    Connection conn = (Connection)Database.GetConnection();
+                    PreparedStatement ps = conn.prepareStatement(query);
+                    ps.execute();
+                    ps.close();
+                    conn.close();
+
+                    this._datatables();
+                    JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");   
+                }
+            }
+        }
+    }//GEN-LAST:event_btnBook_deleteMouseClicked
     
     protected void _resetField() {
         txt_nama.setText("");
