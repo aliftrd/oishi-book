@@ -152,7 +152,7 @@ public class Member extends javax.swing.JFrame {
         ZeroLayout.add(txt_jk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 250, 29));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel15.setText("Nomor");
+        jLabel15.setText("Nomor HP");
         ZeroLayout.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, 30));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -272,7 +272,6 @@ public class Member extends javax.swing.JFrame {
     private void btnBook_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_deleteMouseClicked
         int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin akan menghapus anggota ini?", "OK", JOptionPane.OK_CANCEL_OPTION);
         if(confirm == 0) {
-            DefaultTableModel tbl = (DefaultTableModel) member_table.getModel();
             int[] rows = member_table.getSelectedRows();
             for (int i = 0; i < rows.length; i++) {
                 String id_anggota = member_table.getValueAt(rows[i], 0).toString();
