@@ -5,8 +5,15 @@
  */
 package Main.MasterData;
 
+import Config.Database;
 import Main.Date.CurrentDate;
 import Main.Master;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,11 +27,40 @@ public class Member extends javax.swing.JFrame {
     public Member() {
         initComponents();
         _setDate();
+        _datatables();
     }
     
     private void _setDate() {
         CurrentDate cd = new CurrentDate();
         tanggal_hari_ini.setText(cd.getCurDate());
+    }
+    
+    protected void _datatables() {
+        DefaultTableModel tbl = new DefaultTableModel();
+        tbl.addColumn("ID");
+        tbl.addColumn("Nama");
+        tbl.addColumn("Nomor");
+        tbl.addColumn("Alamat");
+        tbl.addColumn("Gender");
+        member_table.setModel(tbl);
+        try {
+            String query = "SELECT * FROM anggota";
+            Connection conn = (Connection)Database.GetConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet result = ps.executeQuery();
+            while(result.next()) {
+                tbl.addRow(new Object[] {
+                    result.getString("id_anggota"),
+                    result.getString("nama"),
+                    result.getString("nomor"),
+                    result.getString("alamat"),
+                    result.getString("gender"),
+                });
+                member_table.setModel(tbl);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan saat mengambil data");
+        }
     }
 
     /**
@@ -137,6 +173,11 @@ public class Member extends javax.swing.JFrame {
         ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 890, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
+        btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBook_resetMouseClicked(evt);
+            }
+        });
         btnBook_reset.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,6 +198,11 @@ public class Member extends javax.swing.JFrame {
         ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 70, 30));
 
         btnBook_submit.setBackground(new java.awt.Color(22, 30, 84));
+        btnBook_submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBook_submitMouseClicked(evt);
+            }
+        });
         btnBook_submit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,6 +232,25 @@ public class Member extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_backMouseClicked
 
+    private void btnBook_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_resetMouseClicked
+        this._resetField();
+    }//GEN-LAST:event_btnBook_resetMouseClicked
+
+    private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
+        if(!txt_nama.getText().equals("") && !txt_nomor.getText().equals("") && txt_jk.getSelectedIndex() != 0 && !txt_alamat.getText().equals("")) {
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Data tidak boleh kosong!");   
+        }
+    }//GEN-LAST:event_btnBook_submitMouseClicked
+    
+    protected void _resetField() {
+        txt_nama.setText("");
+        txt_nomor.setText("");
+        txt_jk.setSelectedIndex(0);
+        txt_alamat.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
