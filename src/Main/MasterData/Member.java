@@ -108,7 +108,7 @@ public class Member extends javax.swing.JFrame {
         txt_alamat.setRows(5);
         jScrollPane1.setViewportView(txt_alamat);
 
-        ZeroLayout.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 250, -1));
+        ZeroLayout.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 250, -1));
 
         btn_back.setBackground(new java.awt.Color(22, 30, 84));
         btn_back.setMinimumSize(new java.awt.Dimension(0, 720));
@@ -134,28 +134,28 @@ public class Member extends javax.swing.JFrame {
         Topbar.add(tanggal_hari_ini, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 26, -1, -1));
 
         ZeroLayout.add(Topbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 1240, 66));
-        ZeroLayout.add(txt_nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 250, 29));
-        ZeroLayout.add(txt_nomor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 250, 29));
+        ZeroLayout.add(txt_nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 250, 29));
+        ZeroLayout.add(txt_nomor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 250, 29));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Alamat");
-        ZeroLayout.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, 30));
+        ZeroLayout.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setText("Nama");
-        ZeroLayout.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, 30));
+        ZeroLayout.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 30));
 
         txt_jk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Pria", "Wanita" }));
         txt_jk.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ZeroLayout.add(txt_jk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 250, 29));
+        ZeroLayout.add(txt_jk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 250, 29));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Nomor");
-        ZeroLayout.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 30));
+        ZeroLayout.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, 30));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Jenis Kelamin");
-        ZeroLayout.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 30));
+        ZeroLayout.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 30));
 
         member_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -185,7 +185,7 @@ public class Member extends javax.swing.JFrame {
         jLabel17.setText("Reset");
         btnBook_reset.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
 
-        ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 80, 30));
+        ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 80, 30));
 
         btnBook_delete.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_delete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -195,7 +195,7 @@ public class Member extends javax.swing.JFrame {
         jLabel18.setText("Hapus");
         btnBook_delete.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
 
-        ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 70, 30));
+        ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 70, 30));
 
         btnBook_submit.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_submit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -210,7 +210,7 @@ public class Member extends javax.swing.JFrame {
         jLabel19.setText("Simpan");
         btnBook_submit.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
 
-        ZeroLayout.add(btnBook_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 80, 30));
+        ZeroLayout.add(btnBook_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 80, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,7 +238,11 @@ public class Member extends javax.swing.JFrame {
 
     private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
         if(!txt_nama.getText().equals("") && !txt_nomor.getText().equals("") && txt_jk.getSelectedIndex() != 0 && !txt_alamat.getText().equals("")) {
-            
+            try {
+                
+            } catch (Exception e) {
+                
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Data tidak boleh kosong!");   
         }
