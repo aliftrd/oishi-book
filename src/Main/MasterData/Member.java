@@ -11,7 +11,6 @@ import Main.Master;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Illuminate
  */
 public class Member extends javax.swing.JFrame {
+    protected String selectedMemberID;
 
     /**
      * Creates new form Member
@@ -96,6 +96,8 @@ public class Member extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         btnBook_submit = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
+        btnBook_save = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master - Member");
@@ -110,7 +112,7 @@ public class Member extends javax.swing.JFrame {
         txt_alamat.setRows(5);
         jScrollPane1.setViewportView(txt_alamat);
 
-        ZeroLayout.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 250, -1));
+        ZeroLayout.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 300, -1));
 
         btn_back.setBackground(new java.awt.Color(22, 30, 84));
         btn_back.setMinimumSize(new java.awt.Dimension(0, 720));
@@ -136,8 +138,8 @@ public class Member extends javax.swing.JFrame {
         Topbar.add(tanggal_hari_ini, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 26, -1, -1));
 
         ZeroLayout.add(Topbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 1240, 66));
-        ZeroLayout.add(txt_nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 250, 29));
-        ZeroLayout.add(txt_nomor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 250, 29));
+        ZeroLayout.add(txt_nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 300, 29));
+        ZeroLayout.add(txt_nomor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 300, 29));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Alamat");
@@ -149,7 +151,7 @@ public class Member extends javax.swing.JFrame {
 
         txt_jk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Pria", "Wanita" }));
         txt_jk.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ZeroLayout.add(txt_jk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 250, 29));
+        ZeroLayout.add(txt_jk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 300, 29));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Nomor HP");
@@ -159,6 +161,7 @@ public class Member extends javax.swing.JFrame {
         jLabel16.setText("Jenis Kelamin");
         ZeroLayout.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 30));
 
+        member_table.setAutoCreateRowSorter(true);
         member_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -170,9 +173,16 @@ public class Member extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        member_table.setRowHeight(25);
+        member_table.setRowSelectionAllowed(false);
+        member_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                member_tableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(member_table);
 
-        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 890, -1));
+        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 850, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,11 +195,11 @@ public class Member extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Reset");
-        btnBook_reset.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
+        btnBook_reset.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 65, 30));
 
-        ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 80, 30));
+        ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 65, 30));
 
-        btnBook_delete.setBackground(new java.awt.Color(22, 30, 84));
+        btnBook_delete.setBackground(new java.awt.Color(255, 92, 88));
         btnBook_delete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBook_deleteMouseClicked(evt);
@@ -197,14 +207,15 @@ public class Member extends javax.swing.JFrame {
         });
         btnBook_delete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel18.setBackground(new java.awt.Color(255, 92, 88));
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Hapus");
-        btnBook_delete.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
+        btnBook_delete.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 65, 30));
 
-        ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 70, 30));
+        ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 420, 65, 30));
 
-        btnBook_submit.setBackground(new java.awt.Color(22, 30, 84));
+        btnBook_submit.setBackground(new java.awt.Color(87, 204, 153));
         btnBook_submit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBook_submitMouseClicked(evt);
@@ -212,12 +223,29 @@ public class Member extends javax.swing.JFrame {
         });
         btnBook_submit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel19.setBackground(new java.awt.Color(87, 204, 153));
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Simpan");
-        btnBook_submit.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
+        jLabel19.setText("Tambah");
+        btnBook_submit.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 65, 30));
 
-        ZeroLayout.add(btnBook_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 80, 30));
+        ZeroLayout.add(btnBook_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 65, 30));
+
+        btnBook_save.setBackground(new java.awt.Color(250, 173, 128));
+        btnBook_save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBook_saveMouseClicked(evt);
+            }
+        });
+        btnBook_save.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setBackground(new java.awt.Color(250, 173, 128));
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Ubah");
+        btnBook_save.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 65, 30));
+
+        ZeroLayout.add(btnBook_save, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, 65, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,24 +273,28 @@ public class Member extends javax.swing.JFrame {
 
     private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
         if(!txt_nama.getText().equals("") && !txt_nomor.getText().equals("") && txt_jk.getSelectedIndex() != 0 && !txt_alamat.getText().equals("")) {
-            String nama = txt_nama.getText();
-            String nomor = txt_nomor.getText();
-            String alamat = txt_alamat.getText();
-            String gender = txt_jk.getSelectedItem().toString();
-            
-            try {
-                String query = "INSERT INTO anggota (id_anggota, nama, nomor, alamat, gender) VALUES (NULL, '" + nama + "', '" + nomor + "', '" + alamat + "', '" + gender + "')";
-                Connection conn = (Connection)Database.GetConnection();
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.execute();
-                ps.close();
-                conn.close();
-                
-                this._datatables();
-                this._resetField();
-                JOptionPane.showMessageDialog(this, "Berhasil menambahkan data");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");   
+            if(this.selectedMemberID != null) {
+                JOptionPane.showMessageDialog(this, "Data sudah ada didatabase!");
+            } else {
+                String nama = txt_nama.getText();
+                String nomor = txt_nomor.getText();
+                String alamat = txt_alamat.getText();
+                String gender = txt_jk.getSelectedItem().toString();
+
+                try {
+                    String query = "INSERT INTO anggota (id_anggota, nama, nomor, alamat, gender) VALUES (NULL, '" + nama + "', '" + nomor + "', '" + alamat + "', '" + gender + "')";
+                    Connection conn = (Connection)Database.GetConnection();
+                    PreparedStatement ps = conn.prepareStatement(query);
+                    ps.execute();
+                    ps.close();
+                    conn.close();
+
+                    this._datatables();
+                    this._resetField();
+                    JOptionPane.showMessageDialog(this, "Berhasil menambahkan data");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");   
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Data tidak boleh kosong!");   
@@ -272,28 +304,74 @@ public class Member extends javax.swing.JFrame {
     private void btnBook_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_deleteMouseClicked
         int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin akan menghapus anggota ini?", "OK", JOptionPane.OK_CANCEL_OPTION);
         if(confirm == 0) {
-            int[] rows = member_table.getSelectedRows();
-            for (int i = 0; i < rows.length; i++) {
-                String id_anggota = member_table.getValueAt(rows[i], 0).toString();
+            int row = member_table.getSelectedRow();
+            String id_anggota = member_table.getValueAt(row, 0).toString();
 
-                try {
-                    String query = "DELETE FROM anggota WHERE id_anggota='" + id_anggota + "'";
-                    Connection conn = (Connection)Database.GetConnection();
-                    PreparedStatement ps = conn.prepareStatement(query);
-                    ps.execute();
-                    ps.close();
-                    conn.close();
+            try {
+                String query = "DELETE FROM anggota WHERE id_anggota='" + id_anggota + "'";
+                Connection conn = (Connection)Database.GetConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.execute();
+                ps.close();
+                conn.close();
 
-                    this._datatables();
-                    JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");   
-                }
+                this._resetField();
+                this._datatables();
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");   
             }
         }
     }//GEN-LAST:event_btnBook_deleteMouseClicked
+
+    private void btnBook_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_saveMouseClicked
+        if(this.selectedMemberID == null) {
+            JOptionPane.showMessageDialog(this, "Error! Silahkan pilih data yang akan diubah");
+        } else {
+            try {
+                String nama = txt_nama.getText();
+                String nomor = txt_nomor.getText();
+                String alamat = txt_alamat.getText();
+                String gender = txt_jk.getSelectedItem().toString();
+                
+                String query = "UPDATE anggota SET nama = '" + nama + "', nomor = '" + nomor + "', alamat = '" + alamat + "', gender = '" + gender + "' WHERE id_anggota = '" + this.selectedMemberID + "'";
+                Connection conn = (Connection)Database.GetConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.execute();
+                ps.close();
+                conn.close();
+
+                this._datatables();
+                this._resetField();
+                JOptionPane.showMessageDialog(this, "Berhasil mengubah data");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengubah data");   
+            }
+        }
+    }//GEN-LAST:event_btnBook_saveMouseClicked
+
+    private void member_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_member_tableMouseClicked
+        int row = member_table.getSelectedRow();
+        String id = member_table.getValueAt(row, 0).toString();
+        String nama = member_table.getValueAt(row, 1).toString();
+        String nomor = member_table.getValueAt(row, 2).toString();
+        String alamat = member_table.getValueAt(row, 3).toString();
+        String gender = member_table.getValueAt(row, 4).toString();
+        
+        this.selectedMemberID = id;
+        txt_nama.setText(nama);
+        txt_nomor.setText(nomor);
+        txt_alamat.setText(alamat);
+        for(int i = 0; i < txt_jk.getItemCount(); i++) {
+            String item = txt_jk.getItemAt(i);
+            if(item.equals(gender)) {
+                txt_jk.setSelectedIndex(i);
+            }
+        }
+    }//GEN-LAST:event_member_tableMouseClicked
     
     protected void _resetField() {
+        this.selectedMemberID = null;
         txt_nama.setText("");
         txt_nomor.setText("");
         txt_jk.setSelectedIndex(0);
@@ -343,6 +421,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JPanel ZeroLayout;
     private javax.swing.JPanel btnBook_delete;
     private javax.swing.JPanel btnBook_reset;
+    private javax.swing.JPanel btnBook_save;
     private javax.swing.JPanel btnBook_submit;
     private javax.swing.JPanel btn_back;
     private javax.swing.JLabel jLabel1;
@@ -353,6 +432,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable member_table;

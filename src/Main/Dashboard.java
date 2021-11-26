@@ -383,7 +383,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel peminjamCounter;
     private javax.swing.JPanel peminjamanBox;
     private javax.swing.JLabel side_logo;
-    private javax.swing.JLabel side_name;
+    public javax.swing.JLabel side_name;
     private javax.swing.JLabel side_role;
     private javax.swing.JLabel tanggal_hari_ini;
     private javax.swing.JPanel totalAnggotaBox;

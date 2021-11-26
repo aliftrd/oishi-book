@@ -44,7 +44,6 @@ public class Master extends javax.swing.JFrame {
         ZeroLayout = new javax.swing.JPanel();
         Sidebar = new javax.swing.JPanel();
         side_logo = new javax.swing.JLabel();
-        side_name = new javax.swing.JLabel();
         side_role = new javax.swing.JLabel();
         paneDashboard = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -60,6 +59,10 @@ public class Master extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Topbar = new javax.swing.JPanel();
         tanggal_hari_ini = new javax.swing.JLabel();
+        PenerbitLyt = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        PetugasLyt = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         MemberLyt = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -171,6 +174,36 @@ public class Master extends javax.swing.JFrame {
 
         ZeroLayout.add(Topbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 990, 66));
 
+        PenerbitLyt.setBackground(new java.awt.Color(250, 173, 128));
+        PenerbitLyt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PenerbitLytMouseClicked(evt);
+            }
+        });
+        PenerbitLyt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Penerbit");
+        PenerbitLyt.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
+
+        ZeroLayout.add(PenerbitLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 110, 240, 130));
+
+        PetugasLyt.setBackground(new java.awt.Color(87, 204, 153));
+        PetugasLyt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PetugasLytMouseClicked(evt);
+            }
+        });
+        PetugasLyt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Petugas");
+        PetugasLyt.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
+
+        ZeroLayout.add(PetugasLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 240, 130));
+
         MemberLyt.setBackground(new java.awt.Color(255, 92, 88));
         MemberLyt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -184,7 +217,7 @@ public class Master extends javax.swing.JFrame {
         jLabel9.setText("Member");
         MemberLyt.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
 
-        ZeroLayout.add(MemberLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 240, 130));
+        ZeroLayout.add(MemberLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 240, 130));
 
         getContentPane().add(ZeroLayout, java.awt.BorderLayout.CENTER);
 
@@ -211,6 +244,14 @@ public class Master extends javax.swing.JFrame {
         new Member().setVisible(true);
         dispose();
     }//GEN-LAST:event_MemberLytMouseClicked
+
+    private void PetugasLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PetugasLytMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PetugasLytMouseClicked
+
+    private void PenerbitLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PenerbitLytMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PenerbitLytMouseClicked
 
     /**
      * @param args the command line arguments
@@ -252,10 +293,14 @@ public class Master extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MemberLyt;
+    private javax.swing.JPanel PenerbitLyt;
+    private javax.swing.JPanel PetugasLyt;
     private javax.swing.JPanel Sidebar;
     private javax.swing.JPanel Topbar;
     private javax.swing.JPanel ZeroLayout;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -269,7 +314,7 @@ public class Master extends javax.swing.JFrame {
     private javax.swing.JPanel paneMaster;
     private javax.swing.JPanel paneTransaksi;
     private javax.swing.JLabel side_logo;
-    private javax.swing.JLabel side_name;
+    public static final javax.swing.JLabel side_name = new javax.swing.JLabel();
     private javax.swing.JLabel side_role;
     private javax.swing.JLabel tanggal_hari_ini;
     // End of variables declaration//GEN-END:variables
