@@ -1,10 +1,12 @@
 package Main;
 
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import Main.Date.CurrentDate;
+import Main.MasterData.Buku;
 import Main.MasterData.Member;
+import Main.MasterData.Penerbit;
+import Main.MasterData.Pengarang;
+import Main.MasterData.Petugas;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,6 +25,8 @@ public class Master extends javax.swing.JFrame {
      */
     public Master() {
         initComponents();
+        side_name.setText(Model.User.getName());
+        
         setExtendedState(1280);
         _setDate();
     }
@@ -65,6 +69,12 @@ public class Master extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         MemberLyt = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        PengarangLyt = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        BukuLyt = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        RiwayatTrxLyt = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master");
@@ -187,7 +197,7 @@ public class Master extends javax.swing.JFrame {
         jLabel11.setText("Penerbit");
         PenerbitLyt.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
 
-        ZeroLayout.add(PenerbitLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 110, 240, 130));
+        ZeroLayout.add(PenerbitLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 240, 130));
 
         PetugasLyt.setBackground(new java.awt.Color(87, 204, 153));
         PetugasLyt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,6 +229,51 @@ public class Master extends javax.swing.JFrame {
 
         ZeroLayout.add(MemberLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 240, 130));
 
+        PengarangLyt.setBackground(new java.awt.Color(250, 173, 128));
+        PengarangLyt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PengarangLytMouseClicked(evt);
+            }
+        });
+        PengarangLyt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Pengarang");
+        PengarangLyt.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
+
+        ZeroLayout.add(PengarangLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 110, 240, 130));
+
+        BukuLyt.setBackground(new java.awt.Color(87, 204, 153));
+        BukuLyt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BukuLytMouseClicked(evt);
+            }
+        });
+        BukuLyt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Buku");
+        BukuLyt.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
+
+        ZeroLayout.add(BukuLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, 240, 130));
+
+        RiwayatTrxLyt.setBackground(new java.awt.Color(255, 92, 88));
+        RiwayatTrxLyt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RiwayatTrxLytMouseClicked(evt);
+            }
+        });
+        RiwayatTrxLyt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Riwayat Transaksi");
+        RiwayatTrxLyt.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 130));
+
+        ZeroLayout.add(RiwayatTrxLyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, 240, 130));
+
         getContentPane().add(ZeroLayout, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -236,8 +291,11 @@ public class Master extends javax.swing.JFrame {
     }//GEN-LAST:event_paneDashboardMouseClicked
 
     private void paneLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paneLogoutMouseClicked
-        new Login().setVisible(true);
-        dispose();
+        int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin ingin keluar?", "Peringatan", JOptionPane.OK_CANCEL_OPTION);
+        if(confirm == 0) {
+            new Login().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_paneLogoutMouseClicked
 
     private void MemberLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MemberLytMouseClicked
@@ -246,12 +304,28 @@ public class Master extends javax.swing.JFrame {
     }//GEN-LAST:event_MemberLytMouseClicked
 
     private void PetugasLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PetugasLytMouseClicked
-        // TODO add your handling code here:
+        new Petugas().setVisible(true);
+        dispose();
     }//GEN-LAST:event_PetugasLytMouseClicked
 
     private void PenerbitLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PenerbitLytMouseClicked
-        // TODO add your handling code here:
+        new Penerbit().setVisible(true);
+        dispose();
     }//GEN-LAST:event_PenerbitLytMouseClicked
+
+    private void PengarangLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PengarangLytMouseClicked
+        new Pengarang().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_PengarangLytMouseClicked
+
+    private void BukuLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BukuLytMouseClicked
+        new Buku().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BukuLytMouseClicked
+
+    private void RiwayatTrxLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RiwayatTrxLytMouseClicked
+        JOptionPane.showMessageDialog(this, "Fitur ini sedang tahap pengembangan");
+    }//GEN-LAST:event_RiwayatTrxLytMouseClicked
 
     /**
      * @param args the command line arguments
@@ -292,15 +366,21 @@ public class Master extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel BukuLyt;
     private javax.swing.JPanel MemberLyt;
     private javax.swing.JPanel PenerbitLyt;
+    private javax.swing.JPanel PengarangLyt;
     private javax.swing.JPanel PetugasLyt;
+    private javax.swing.JPanel RiwayatTrxLyt;
     private javax.swing.JPanel Sidebar;
     private javax.swing.JPanel Topbar;
     private javax.swing.JPanel ZeroLayout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

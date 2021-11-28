@@ -10,13 +10,22 @@ package Model;
  * @author Illuminate
  */
 public class User {
-    private String username;
+    private static int id;
+    private static String username;
     
-    public String getUsername() {
+    public static int getId() {
+        return id;
+    }
+    
+    public static void setId(int id) {
+        User.id = id;
+    }
+    
+    public static String getName() {
         return username;
     }
     
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setName(String username) {
+        User.username = username;
     }
 }

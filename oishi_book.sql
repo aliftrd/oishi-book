@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 25, 2021 at 02:45 AM
+-- Generation Time: Nov 28, 2021 at 12:08 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.16
 
@@ -35,13 +35,6 @@ CREATE TABLE `anggota` (
   `gender` enum('Pria','Wanita') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `anggota`
---
-
-INSERT INTO `anggota` (`id_anggota`, `nama`, `nomor`, `alamat`, `gender`) VALUES
-(10001, 'Rangtod', '08812312312', 'STB', 'Pria');
-
 -- --------------------------------------------------------
 
 --
@@ -54,16 +47,8 @@ CREATE TABLE `buku` (
   `id_pengarang` int(11) NOT NULL,
   `nama` varchar(128) NOT NULL,
   `harga` int(11) NOT NULL,
-  `jumlah_halaman` int(11) NOT NULL,
-  `tahun_terbit` year(4) NOT NULL
+  `jumlah_halaman` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `buku`
---
-
-INSERT INTO `buku` (`id_buku`, `id_penerbit`, `id_pengarang`, `nama`, `harga`, `jumlah_halaman`, `tahun_terbit`) VALUES
-(1, 1, 1, 'Kita Semua Pernah Sedih', 3000, 128, 2021);
 
 -- --------------------------------------------------------
 
@@ -77,7 +62,7 @@ CREATE TABLE `detail_transaksi` (
   `id_buku` int(11) NOT NULL,
   `tanggal_peminjaman` date NOT NULL,
   `tanggal_pengembalian` date NOT NULL,
-  `tanggal_dikembalikan` date NOT NULL
+  `tanggal_dikembalikan` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -92,13 +77,6 @@ CREATE TABLE `penerbit` (
   `alamat` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `penerbit`
---
-
-INSERT INTO `penerbit` (`id_penerbit`, `nama`, `alamat`) VALUES
-(1, 'Mediakita', 'Jakarta');
-
 -- --------------------------------------------------------
 
 --
@@ -109,13 +87,6 @@ CREATE TABLE `pengarang` (
   `id_pengarang` int(11) NOT NULL,
   `nama` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pengarang`
---
-
-INSERT INTO `pengarang` (`id_pengarang`, `nama`) VALUES
-(1, 'Boy Chandra');
 
 -- --------------------------------------------------------
 
@@ -138,7 +109,7 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`id_petugas`, `nama`, `username`, `password`, `nomor`, `gender`, `alamat`) VALUES
-(1, 'Alif Triadi', 'aliftriadi', '123456', '081232572073', 'Pria', 'Kepo kamu bang');
+(1, 'Root', 'root', 'root', '0812345678910', 'Pria', 'Dusun Kampung Liyue');
 
 -- --------------------------------------------------------
 
@@ -216,13 +187,13 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `anggota`
 --
 ALTER TABLE `anggota`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
+  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi`
@@ -234,13 +205,13 @@ ALTER TABLE `detail_transaksi`
 -- AUTO_INCREMENT for table `penerbit`
 --
 ALTER TABLE `penerbit`
-  MODIFY `id_penerbit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_penerbit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengarang`
 --
 ALTER TABLE `pengarang`
-  MODIFY `id_pengarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengarang` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `petugas`

@@ -23,6 +23,8 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+        side_name.setText(Model.User.getName());
+        
         setExtendedState(1280);
         _setDate();
         _setPinjamBox();
@@ -313,8 +315,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_paneMasterMouseClicked
 
     private void paneLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paneLogoutMouseClicked
-        new Login().setVisible(true);
-        dispose();
+        int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin ingin keluar?", "Peringatan", JOptionPane.OK_CANCEL_OPTION);
+        if(confirm == 0) {
+            new Login().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_paneLogoutMouseClicked
 
     /**

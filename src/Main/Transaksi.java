@@ -2,13 +2,14 @@ package Main;
 
 
 import Config.Database;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Main.Date.CurrentDate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.UUID;
+import java.sql.Statement;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,14 +22,26 @@ import java.util.UUID;
  * @author Illuminate
  */
 public class Transaksi extends javax.swing.JFrame {
-
+    private DefaultTableModel tbl = new DefaultTableModel();
+    protected int total_harga = 0;
     /**
      * Creates new form Login
      */
     public Transaksi() {
         initComponents();
+        side_name.setText(Model.User.getName());
+        
         setExtendedState(1280);
+        _datatables();
         _setDate();
+    }
+    
+    private void _datatables() {
+        this.tbl.addColumn("Nomor Buku");
+        this.tbl.addColumn("Nama Buku");
+        this.tbl.addColumn("Harga Buku");
+        this.tbl.addColumn("Lama Peminjam");
+        cart_table.setModel(tbl);
     }
     
     private void _setDate() {
@@ -80,12 +93,20 @@ public class Transaksi extends javax.swing.JFrame {
         due_date = new javax.swing.JComboBox<>();
         btnBook_reset = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
+        btn_resetAll = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
         btnBook_delete = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         btnBook_submit = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        trx_submit = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         cart_table = new javax.swing.JTable();
+        jLabel19 = new javax.swing.JLabel();
+        harga_buku = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        txt_total = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Transaksi");
@@ -251,10 +272,10 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Lama peminjaman (hari)");
-        ZeroLayout.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 180, 30));
+        ZeroLayout.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 180, 30));
 
         due_date.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "7", "14", "30" }));
-        ZeroLayout.add(due_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 260, 30));
+        ZeroLayout.add(due_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, 260, 30));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -269,28 +290,75 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel16.setText("Reset");
         btnBook_reset.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
 
-        ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 280, 70, 30));
+        ZeroLayout.add(btnBook_reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 70, 30));
 
-        btnBook_delete.setBackground(new java.awt.Color(22, 30, 84));
+        btn_resetAll.setBackground(new java.awt.Color(22, 30, 84));
+        btn_resetAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_resetAllMouseClicked(evt);
+            }
+        });
+        btn_resetAll.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Reset");
+        btn_resetAll.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
+
+        ZeroLayout.add(btn_resetAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 510, 70, 30));
+
+        btnBook_delete.setBackground(new java.awt.Color(255, 92, 88));
+        btnBook_delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBook_deleteMouseClicked(evt);
+            }
+        });
         btnBook_delete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel17.setBackground(new java.awt.Color(255, 92, 88));
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Hapus");
         btnBook_delete.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
 
-        ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 80, 30));
+        ZeroLayout.add(btnBook_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 340, 80, 30));
 
-        btnBook_submit.setBackground(new java.awt.Color(22, 30, 84));
+        btnBook_submit.setBackground(new java.awt.Color(87, 204, 153));
+        btnBook_submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBook_submitMouseClicked(evt);
+            }
+        });
         btnBook_submit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Simpan");
+        jLabel18.setText("Tambahkan");
         btnBook_submit.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
 
-        ZeroLayout.add(btnBook_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 280, 70, 30));
+        ZeroLayout.add(btnBook_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 340, 70, 30));
 
+        trx_submit.setBackground(new java.awt.Color(87, 204, 153));
+        trx_submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                trx_submitMouseClicked(evt);
+            }
+        });
+        trx_submit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Simpan");
+        trx_submit.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
+
+        ZeroLayout.add(trx_submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 510, 70, 30));
+
+        cart_table = new javax.swing.JTable() {
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        cart_table.setAutoCreateRowSorter(true);
         cart_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -302,9 +370,33 @@ public class Transaksi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(cart_table);
+        cart_table.setRowHeight(25);
+        cart_table.setRowSelectionAllowed(false);
+        cart_table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(cart_table);
+        if (cart_table.getColumnModel().getColumnCount() > 0) {
+            cart_table.getColumnModel().getColumn(1).setResizable(false);
+            cart_table.getColumnModel().getColumn(2).setResizable(false);
+        }
 
-        ZeroLayout.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 600, 320));
+        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 600, 280));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel19.setText("Harga Buku");
+        ZeroLayout.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 90, 30));
+
+        harga_buku.setEnabled(false);
+        ZeroLayout.add(harga_buku, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 260, 30));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setText("Total");
+        ZeroLayout.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 390, 90, 30));
+
+        txt_total.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        txt_total.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_total.setText("0");
+        txt_total.setEnabled(false);
+        ZeroLayout.add(txt_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 260, 72));
 
         getContentPane().add(ZeroLayout, java.awt.BorderLayout.CENTER);
 
@@ -323,8 +415,11 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_paneMasterMouseClicked
 
     private void paneLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paneLogoutMouseClicked
-        new Login().setVisible(true);
-        dispose();
+        int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin ingin keluar?", "Peringatan", JOptionPane.OK_CANCEL_OPTION);
+        if(confirm == 0) {
+            new Login().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_paneLogoutMouseClicked
 
     private void btnSearch_anggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearch_anggotaMouseClicked
@@ -339,6 +434,8 @@ public class Transaksi extends javax.swing.JFrame {
                 nama_anggota.setText("");
                 JOptionPane.showMessageDialog(rootPane, "Maaf, anggota tidak ditemukan silahkan periksa kembali!");
             }
+            ps.close();
+            conn.close();
         } catch(Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -352,10 +449,13 @@ public class Transaksi extends javax.swing.JFrame {
             ResultSet result = ps.executeQuery();
             if(result.next()) {
                 nama_buku.setText(result.getString("buku.nama") + " - " + result.getString("pengarang.nama"));
+                harga_buku.setText(result.getString("buku.harga"));
             } else {
                 nama_buku.setText("");
                 JOptionPane.showMessageDialog(rootPane, "Maaf, buku tidak ditemukan silahkan periksa kembali!");
             }
+            ps.close();
+            conn.close();
         } catch(Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -365,13 +465,94 @@ public class Transaksi extends javax.swing.JFrame {
         this.resetBook();
     }//GEN-LAST:event_btnBook_resetMouseClicked
 
-    protected void resetTotal() {
+    private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
+        if(!nomor_buku.getText().equals("") && !nama_buku.getText().equals("")) {
+            tbl.addRow(new Object[] {
+                nomor_buku.getText(),
+                nama_buku.getText(),
+                harga_buku.getText(),
+                due_date.getSelectedItem(),
+            });
+            this._setTotal();
+            this.resetBook();
+        } else {
+            JOptionPane.showMessageDialog(this, "Data tidak boleh kosong");
+        }
+    }//GEN-LAST:event_btnBook_submitMouseClicked
+
+    private void _setTotal() {
+        Vector data = tbl.getDataVector();
+        int harga = 0;
+        for(int i = 0; i < data.toArray().length; i++) {
+            int lama_hari = Integer.parseInt(cart_table.getValueAt(i, 3).toString());
+            int harga_per_buku = Integer.parseInt(cart_table.getValueAt(i, 2).toString());
+            harga = harga + (harga_per_buku * lama_hari);
+        }
+        this.total_harga = harga;
+        txt_total.setText(String.valueOf(this.total_harga));
+    }
+    
+    private void btnBook_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_deleteMouseClicked
+        int row = cart_table.getSelectedRow();
+        tbl.removeRow(row);
+        _setTotal();
+    }//GEN-LAST:event_btnBook_deleteMouseClicked
+
+    private void trx_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trx_submitMouseClicked
+        String id_petugas = String.valueOf(Model.User.getId());
+        String id_anggota = text_anggota.getText();
+        String query;
+        PreparedStatement ps;
+        try {
+            query = "INSERT INTO transaksi (id_transaksi, id_petugas, id_anggota, status, harga_total, tanggal_dibuat) VALUES (NULL, '" + id_petugas + "', '" + id_anggota + "', 'Dipinjam', '" + this.total_harga + "', CURRENT_DATE())";
+            Connection conn = (Connection)Database.GetConnection();
+            try {
+                conn.setAutoCommit(false);
+                ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                ps.executeUpdate();
+                ResultSet res = ps.getGeneratedKeys();
+                if(res.next()) {
+                    int id = res.getInt(1);
+                    Vector data = tbl.getDataVector();
+                    for(int i = 0; i < data.toArray().length; i++) {
+                        String id_buku = tbl.getValueAt(i, 0).toString();
+                        String due_date = tbl.getValueAt(i, 3).toString();
+                        query = "INSERT INTO detail_transaksi (id_detail_transaksi, id_transaksi, id_buku, tanggal_peminjaman, tanggal_pengembalian, tanggal_dikembalikan) VALUES (NULL, '" + id + "', '" + id_buku + "', CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL " + due_date + " DAY), NULL)";
+                        ps = conn.prepareStatement(query);
+                        ps.executeUpdate();
+                    }
+                }
+                conn.commit();
+                this.resetAll();
+                JOptionPane.showMessageDialog(this, "Berhasil menambahkan data");
+            } catch(Exception ex) {
+                conn.rollback();
+                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data");
+            } finally {
+                conn.close();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan dengan database");
+        }
         
+    }//GEN-LAST:event_trx_submitMouseClicked
+
+    private void btn_resetAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetAllMouseClicked
+        this.resetAll();
+    }//GEN-LAST:event_btn_resetAllMouseClicked
+
+    protected void resetAll() {
+        this.resetBook();
+        this.resetAnggota();
+        this.total_harga = 0;
+        txt_total.setText(String.valueOf(this.total_harga));
+        tbl.setRowCount(0);
     }
     
     protected void resetBook() {
         nomor_buku.setText("");
         nama_buku.setText("");
+        harga_buku.setText("");
         due_date.setSelectedIndex(0);
     }
     
@@ -431,8 +612,10 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JPanel btnBook_submit;
     private javax.swing.JPanel btnSearch_anggota;
     private javax.swing.JPanel btnSearch_book;
+    private javax.swing.JPanel btn_resetAll;
     private javax.swing.JTable cart_table;
     private javax.swing.JComboBox<String> due_date;
+    private javax.swing.JTextField harga_buku;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -443,7 +626,11 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -451,7 +638,7 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nama_anggota;
     private javax.swing.JTextField nama_buku;
     private javax.swing.JTextField nomor_buku;
@@ -464,5 +651,7 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel side_role;
     private javax.swing.JLabel tanggal_hari_ini;
     private javax.swing.JTextField text_anggota;
+    private javax.swing.JPanel trx_submit;
+    private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
 }

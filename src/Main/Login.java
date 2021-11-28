@@ -199,7 +199,10 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet result = ps.executeQuery();
             if(result.next() && username.getText().equals(result.getString("username")) && password.getText().equals(result.getString("password"))) {
-               new Dashboard().setVisible(true);
+                Model.User.setId(result.getInt("id_petugas"));
+                Model.User.setName(result.getString("nama"));
+                
+                new Dashboard().setVisible(true);
                dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Maaf, Username atau password yang anda masukkan salah");
