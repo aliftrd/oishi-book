@@ -15,8 +15,8 @@ import java.sql.SQLException;
  * @author Illuminate
  */
 public class Database {
-    private static String username = "oishibook";
-    private static String password = "oishibook";
+    private static String username = "root";
+    private static String password = "";
     private static String database = "jdbc:mysql://localhost:3306/oishibook";
     private static Connection connection;
     
