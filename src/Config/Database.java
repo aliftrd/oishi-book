@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class Database {
     private static String username = "oishibook";
     private static String password = "oishibook";
-    private static String database = "jdbc:mysql://db4free.net:3306/oishibook?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+    private static String database = "jdbc:mysql://localhost:3306/oishibook";
     private static Connection connection;
     
     public static Connection GetConnection() throws SQLException {
