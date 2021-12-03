@@ -6,6 +6,7 @@ import Main.MasterData.Member;
 import Main.MasterData.Penerbit;
 import Main.MasterData.Pengarang;
 import Main.MasterData.Petugas;
+import Main.MasterData.RiwayatTrx;
 import javax.swing.JOptionPane;
 
 /*
@@ -324,7 +325,8 @@ public class Master extends javax.swing.JFrame {
     }//GEN-LAST:event_BukuLytMouseClicked
 
     private void RiwayatTrxLytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RiwayatTrxLytMouseClicked
-        JOptionPane.showMessageDialog(this, "Fitur ini sedang tahap pengembangan");
+        new RiwayatTrx().setVisible(true);
+        dispose();
     }//GEN-LAST:event_RiwayatTrxLytMouseClicked
 
     /**

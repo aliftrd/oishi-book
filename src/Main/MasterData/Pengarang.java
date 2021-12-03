@@ -89,10 +89,12 @@ public class Pengarang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master - Pengarang");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         ZeroLayout3.setBackground(new java.awt.Color(255, 255, 255));
         ZeroLayout3.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        ZeroLayout3.setPreferredSize(new java.awt.Dimension(1280, 720));
         ZeroLayout3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_back3.setBackground(new java.awt.Color(22, 30, 84));
@@ -151,7 +153,7 @@ public class Pengarang extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(member_table);
 
-        ZeroLayout3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 850, -1));
+        ZeroLayout3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 830, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,7 +233,7 @@ public class Pengarang extends javax.swing.JFrame {
                 txt_cariKeyReleased(evt);
             }
         });
-        ZeroLayout3.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 280, 29));
+        ZeroLayout3.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 260, 29));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,7 +243,7 @@ public class Pengarang extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ZeroLayout3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(ZeroLayout3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

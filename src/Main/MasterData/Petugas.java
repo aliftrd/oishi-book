@@ -109,10 +109,12 @@ public class Petugas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master - Petugas");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         ZeroLayout.setBackground(new java.awt.Color(255, 255, 255));
         ZeroLayout.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        ZeroLayout.setPreferredSize(new java.awt.Dimension(1280, 720));
         ZeroLayout.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_alamat.setColumns(20);
@@ -195,7 +197,7 @@ public class Petugas extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(petugas_table);
 
-        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 850, -1));
+        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 830, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,7 +277,7 @@ public class Petugas extends javax.swing.JFrame {
                 txt_cariKeyReleased(evt);
             }
         });
-        ZeroLayout.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 280, 29));
+        ZeroLayout.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 260, 29));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel21.setText("Username");
@@ -295,7 +297,7 @@ public class Petugas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ZeroLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(ZeroLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -361,7 +363,7 @@ public class Petugas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBook_deleteMouseClicked
 
     private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
-        if(!txt_nama.getText().equals("") && !txt_nomor.getText().equals("") && txt_jk.getSelectedIndex() != 0 && !txt_alamat.getText().equals("")) {
+        if(!txt_nama.getText().equals("") && !txt_nomor.getText().equals("") && !txt_username.getText().equals("") && !txt_password.getText().equals("") && txt_jk.getSelectedIndex() != 0 && !txt_alamat.getText().equals("")) {
             if(this.selectedPetugasID != null) {
                 JOptionPane.showMessageDialog(this, "Data sudah ada didatabase!");
             } else {

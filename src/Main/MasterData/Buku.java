@@ -44,6 +44,7 @@ public class Buku extends javax.swing.JFrame {
         tbl.addColumn("Penerbit");
         tbl.addColumn("Harga");
         tbl.addColumn("Jumlah Hal");
+        tbl.addColumn("Stock");
         buku_table.setModel(tbl);
         try {
             String query = "SELECT * FROM buku JOIN penerbit ON buku.id_penerbit = penerbit.id_penerbit JOIN pengarang ON buku.id_pengarang = pengarang.id_pengarang ORDER BY id_buku DESC";
@@ -60,6 +61,7 @@ public class Buku extends javax.swing.JFrame {
                     result.getString("penerbit.nama"),
                     result.getString("buku.harga"),
                     result.getString("buku.jumlah_halaman"),
+                    result.getString("buku.stock"),
                 });
                 buku_table.setModel(tbl);
             }
@@ -114,13 +116,17 @@ public class Buku extends javax.swing.JFrame {
         txt_harga = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         txt_hal = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        txt_stock = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master - Buku");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         ZeroLayout5.setBackground(new java.awt.Color(255, 255, 255));
         ZeroLayout5.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        ZeroLayout5.setPreferredSize(new java.awt.Dimension(1280, 720));
         ZeroLayout5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_back5.setBackground(new java.awt.Color(22, 30, 84));
@@ -179,7 +185,7 @@ public class Buku extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(buku_table);
 
-        ZeroLayout5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 850, -1));
+        ZeroLayout5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 830, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,7 +265,7 @@ public class Buku extends javax.swing.JFrame {
                 txt_cariKeyReleased(evt);
             }
         });
-        ZeroLayout5.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 280, 29));
+        ZeroLayout5.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 260, 29));
 
         nama_pengarang.setEnabled(false);
         ZeroLayout5.add(nama_pengarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 245, 29));
@@ -321,9 +327,14 @@ public class Buku extends javax.swing.JFrame {
         ZeroLayout5.add(txt_harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 300, 29));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel21.setText("Jumlah Halaman");
-        ZeroLayout5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, 30));
-        ZeroLayout5.add(txt_hal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 300, 29));
+        jLabel21.setText("Stock");
+        ZeroLayout5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 470, -1, 30));
+        ZeroLayout5.add(txt_hal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 160, 29));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setText("Jumlah Halaman");
+        ZeroLayout5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, 30));
+        ZeroLayout5.add(txt_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, 110, 29));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -333,7 +344,7 @@ public class Buku extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ZeroLayout5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(ZeroLayout5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -355,6 +366,7 @@ public class Buku extends javax.swing.JFrame {
         String nama_pen = buku_table.getValueAt(row, 5).toString();
         String price = buku_table.getValueAt(row, 6).toString();
         String hal = buku_table.getValueAt(row, 7).toString();
+        String stock = buku_table.getValueAt(row, 8).toString();
 
         this.selectedBukuID = id;
         txt_nama.setText(nama);
@@ -364,6 +376,7 @@ public class Buku extends javax.swing.JFrame {
         nama_penerbit.setText(nama_pen);
         txt_harga.setText(price);
         txt_hal.setText(hal);
+        txt_stock.setText(stock);
     }//GEN-LAST:event_buku_tableMouseClicked
 
     private void btnBook_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_resetMouseClicked
@@ -398,7 +411,7 @@ public class Buku extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBook_deleteMouseClicked
 
     private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
-        if(!txt_nama.getText().equals("")) {
+        if(!txt_nama.getText().equals("") && !txt_pengarang.getText().equals("") && !nama_pengarang.getText().equals("") && !txt_penerbit.getText().equals("") && !nama_penerbit.getText().equals("") && !txt_harga.getText().equals("") && !txt_hal.getText().equals("")) {
             if(this.selectedBukuID != null) {
                 JOptionPane.showMessageDialog(this, "Data sudah ada didatabase!");
             } else {
@@ -407,9 +420,10 @@ public class Buku extends javax.swing.JFrame {
                 String id_penerbit = txt_penerbit.getText();
                 String harga = txt_harga.getText();
                 String halaman = txt_hal.getText();
+                String stock = txt_stock.getText();
 
                 try {
-                    String query = "INSERT INTO buku (id_buku, id_penerbit, id_pengarang, nama, harga, jumlah_halaman) VALUES (NULL, '" + id_penerbit + "', '" + id_pengarang + "', '" + nama + "', '" + harga + "', '" + halaman + "')";
+                    String query = "INSERT INTO buku (id_buku, id_penerbit, id_pengarang, nama, harga, jumlah_halaman, stock) VALUES (NULL, '" + id_penerbit + "', '" + id_pengarang + "', '" + nama + "', '" + harga + "', '" + halaman + "', '" + stock + "')";
                     Connection conn = (Connection)Database.GetConnection();
                     PreparedStatement ps = conn.prepareStatement(query);
                     ps.execute();
@@ -438,8 +452,9 @@ public class Buku extends javax.swing.JFrame {
                 String id_penerbit = txt_penerbit.getText();
                 String harga = txt_harga.getText();
                 String halaman = txt_hal.getText();
-
-                String query = "UPDATE buku SET nama = '" + nama + "', id_penerbit = '" + id_penerbit + "', id_pengarang = '" + id_pengarang + "', harga = '" + harga + "', jumlah_halaman = '" + halaman + "' WHERE id_buku = '" + this.selectedBukuID + "'";
+                String stock = txt_stock.getText();
+                
+                String query = "UPDATE buku SET nama = '" + nama + "', id_penerbit = '" + id_penerbit + "', id_pengarang = '" + id_pengarang + "', harga = '" + harga + "', jumlah_halaman = '" + halaman + "', stock = '" + stock + "' WHERE id_buku = '" + this.selectedBukuID + "'";
                 Connection conn = (Connection)Database.GetConnection();
                 PreparedStatement ps = conn.prepareStatement(query);
                 ps.execute();
@@ -488,6 +503,7 @@ public class Buku extends javax.swing.JFrame {
             tbl.addColumn("Penerbit");
             tbl.addColumn("Harga");
             tbl.addColumn("Jumlah Hal");
+            tbl.addColumn("Stock");
             buku_table.setModel(tbl);
             while(result.next()) {
                 tbl.addRow(new Object[] {
@@ -499,6 +515,7 @@ public class Buku extends javax.swing.JFrame {
                     result.getString("penerbit.nama"),
                     result.getString("buku.harga"),
                     result.getString("buku.jumlah_halaman"),
+                    result.getString("buku.stock"),
                 });
                 buku_table.setModel(tbl);
             }
@@ -555,6 +572,7 @@ public class Buku extends javax.swing.JFrame {
         nama_penerbit.setText("");
         txt_harga.setText("");
         txt_hal.setText("");
+        txt_stock.setText("");
     }
     
     /**
@@ -615,6 +633,7 @@ public class Buku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane5;
@@ -627,5 +646,6 @@ public class Buku extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nama;
     private javax.swing.JTextField txt_penerbit;
     private javax.swing.JTextField txt_pengarang;
+    private javax.swing.JTextField txt_stock;
     // End of variables declaration//GEN-END:variables
 }

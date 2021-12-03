@@ -102,10 +102,12 @@ public class Member extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master - Member");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         ZeroLayout.setBackground(new java.awt.Color(255, 255, 255));
         ZeroLayout.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        ZeroLayout.setPreferredSize(new java.awt.Dimension(1280, 720));
         ZeroLayout.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_alamat.setColumns(20);
@@ -188,7 +190,7 @@ public class Member extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(member_table);
 
-        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 850, -1));
+        ZeroLayout.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 830, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,7 +270,7 @@ public class Member extends javax.swing.JFrame {
                 txt_cariKeyReleased(evt);
             }
         });
-        ZeroLayout.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 280, 29));
+        ZeroLayout.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 260, 29));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,7 +280,7 @@ public class Member extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ZeroLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(ZeroLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

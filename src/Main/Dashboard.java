@@ -23,6 +23,7 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+        welcome.setText("Halo, " + Model.User.getName() + "!");
         side_name.setText(Model.User.getName());
         
         setExtendedState(1280);
@@ -122,6 +123,11 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         anggotaCounter = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        welcome = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
@@ -298,6 +304,32 @@ public class Dashboard extends javax.swing.JFrame {
 
         ZeroLayout.add(totalAnggotaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, 239, 81));
 
+        jPanel1.setBackground(new java.awt.Color(22, 30, 84));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel5.setBackground(new java.awt.Color(20, 39, 155));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Kotak Informasi");
+        jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 50));
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 50));
+
+        welcome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        welcome.setForeground(new java.awt.Color(255, 255, 255));
+        welcome.setText("Halo!");
+        jPanel1.add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Selamat datang di aplikasi OISHI BOOK");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+
+        ZeroLayout.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 840, 130));
+
         getContentPane().add(ZeroLayout, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -370,6 +402,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -378,9 +412,11 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel paneDashboard;
     private javax.swing.JPanel paneLogout;
     private javax.swing.JPanel paneMaster;
@@ -393,5 +429,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel tanggal_hari_ini;
     private javax.swing.JPanel totalAnggotaBox;
     private javax.swing.JPanel totalBookBox;
+    private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
 }

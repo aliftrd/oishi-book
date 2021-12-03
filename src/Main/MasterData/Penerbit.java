@@ -40,7 +40,7 @@ public class Penerbit extends javax.swing.JFrame {
         tbl.addColumn("ID");
         tbl.addColumn("Nama");
         tbl.addColumn("Alamat");
-        member_table.setModel(tbl);
+        penerbit_tabel.setModel(tbl);
         try {
             String query = "SELECT * FROM penerbit ORDER BY id_penerbit DESC";
             Connection conn = (Connection)Database.GetConnection();
@@ -52,7 +52,7 @@ public class Penerbit extends javax.swing.JFrame {
                     result.getString("nama"),
                     result.getString("alamat"),
                 });
-                member_table.setModel(tbl);
+                penerbit_tabel.setModel(tbl);
             }
             ps.close();
             conn.close();
@@ -78,7 +78,7 @@ public class Penerbit extends javax.swing.JFrame {
         txt_nama = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        member_table = new javax.swing.JTable();
+        penerbit_tabel = new javax.swing.JTable();
         btnBook_reset = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         btnBook_delete = new javax.swing.JPanel();
@@ -94,10 +94,12 @@ public class Penerbit extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Master - Penerbit");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         ZeroLayout3.setBackground(new java.awt.Color(255, 255, 255));
         ZeroLayout3.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        ZeroLayout3.setPreferredSize(new java.awt.Dimension(1280, 720));
         ZeroLayout3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_back3.setBackground(new java.awt.Color(22, 30, 84));
@@ -130,13 +132,13 @@ public class Penerbit extends javax.swing.JFrame {
         jLabel14.setText("Nama");
         ZeroLayout3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 30));
 
-        member_table = new javax.swing.JTable() {
+        penerbit_tabel = new javax.swing.JTable() {
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
-        member_table.setAutoCreateRowSorter(true);
-        member_table.setModel(new javax.swing.table.DefaultTableModel(
+        penerbit_tabel.setAutoCreateRowSorter(true);
+        penerbit_tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -147,16 +149,16 @@ public class Penerbit extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        member_table.setRowHeight(25);
-        member_table.getTableHeader().setReorderingAllowed(false);
-        member_table.addMouseListener(new java.awt.event.MouseAdapter() {
+        penerbit_tabel.setRowHeight(25);
+        penerbit_tabel.getTableHeader().setReorderingAllowed(false);
+        penerbit_tabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                member_tableMouseClicked(evt);
+                penerbit_tabelMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(member_table);
+        jScrollPane5.setViewportView(penerbit_tabel);
 
-        ZeroLayout3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 850, -1));
+        ZeroLayout3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 830, -1));
 
         btnBook_reset.setBackground(new java.awt.Color(22, 30, 84));
         btnBook_reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -236,7 +238,7 @@ public class Penerbit extends javax.swing.JFrame {
                 txt_cariKeyReleased(evt);
             }
         });
-        ZeroLayout3.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 280, 29));
+        ZeroLayout3.add(txt_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, 260, 29));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Alamat");
@@ -257,7 +259,7 @@ public class Penerbit extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ZeroLayout3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(ZeroLayout3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -269,16 +271,16 @@ public class Penerbit extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_back3MouseClicked
 
-    private void member_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_member_tableMouseClicked
-        int row = member_table.getSelectedRow();
-        String id = member_table.getValueAt(row, 0).toString();
-        String nama = member_table.getValueAt(row, 1).toString();
-        String alamat = member_table.getValueAt(row, 2).toString();
+    private void penerbit_tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penerbit_tabelMouseClicked
+        int row = penerbit_tabel.getSelectedRow();
+        String id = penerbit_tabel.getValueAt(row, 0).toString();
+        String nama = penerbit_tabel.getValueAt(row, 1).toString();
+        String alamat = penerbit_tabel.getValueAt(row, 2).toString();
 
         this.selectedPenerbitID = id;
         txt_nama.setText(nama);
         txt_alamat.setText(alamat);
-    }//GEN-LAST:event_member_tableMouseClicked
+    }//GEN-LAST:event_penerbit_tabelMouseClicked
 
     private void btnBook_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_resetMouseClicked
         this._resetField();
@@ -288,8 +290,8 @@ public class Penerbit extends javax.swing.JFrame {
         if(this.selectedPenerbitID != null) {
             int confirm = JOptionPane.showConfirmDialog(this, "Kamu yakin akan menghapus penerbit ini?", "Peringatan", JOptionPane.OK_CANCEL_OPTION);
             if(confirm == 0) {
-                int row = member_table.getSelectedRow();
-                String id_penerbit = member_table.getValueAt(row, 0).toString();
+                int row = penerbit_tabel.getSelectedRow();
+                String id_penerbit = penerbit_tabel.getValueAt(row, 0).toString();
 
                 try {
                     String query = "DELETE FROM penerbit WHERE id_penerbit = '" + id_penerbit + "'";
@@ -312,7 +314,7 @@ public class Penerbit extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBook_deleteMouseClicked
 
     private void btnBook_submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBook_submitMouseClicked
-        if(!txt_nama.getText().equals("")) {
+        if(!txt_nama.getText().equals("") && !txt_alamat.getText().equals("")) {
             if(this.selectedPenerbitID != null) {
                 JOptionPane.showMessageDialog(this, "Data sudah ada didatabase!");
             } else {
@@ -391,14 +393,14 @@ public class Penerbit extends javax.swing.JFrame {
             tbl.addColumn("ID");
             tbl.addColumn("Nama");
             tbl.addColumn("Alamat");
-            member_table.setModel(tbl);
+            penerbit_tabel.setModel(tbl);
             while(result.next()) {
                 tbl.addRow(new Object[] {
                     result.getString("id_penerbit"),
                     result.getString("nama"),
                     result.getString("alamat"),
                 });
-                member_table.setModel(tbl);
+                penerbit_tabel.setModel(tbl);
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengambil data");
@@ -463,7 +465,7 @@ public class Penerbit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable member_table;
+    private javax.swing.JTable penerbit_tabel;
     private javax.swing.JLabel tanggal_hari_ini;
     private javax.swing.JTextArea txt_alamat;
     private javax.swing.JTextField txt_cari;
